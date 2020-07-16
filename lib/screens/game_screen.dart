@@ -45,42 +45,33 @@ class _GameScreenState extends State<GameScreen> {
             Container(
               height: 500,
               child: GridView(
-                // itemCount: 9,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 3,
                 ),
-                // itemBuilder: (context, index) {
-                //   return ColorCard(
-                //     index: index,
-                //     color: Colors.blue,
-                //   );
-                // },
                 children: List.generate(
-                    pairs.length,
-                    (index) => GestureDetector(
-                          onTap: () {
-                            setState(() {
-                              // print(firstSelectedIndex);
-                              if (firstSelectedIndex == -1) {
-                                firstSelectedIndex = index;
-                              } else {
-                                secondSelectedIndex = index;
-                                _swap(pairs, firstSelectedIndex,
-                                    secondSelectedIndex);
-                                firstSelectedIndex = -1;
-                                secondSelectedIndex = -1;
-                              }
-                            });
-                          },
-                          child: TileCard(
-                            index: index,
-                            color: pairs[index].getColor(),
-                            isSelected: pairs[index].getIsSelected(),
-                            parent: this,
-                          ),
-                        )),
+                  pairs.length,
+                  (index) => GestureDetector(
+                    onTap: () {
+                      setState(() {
+                        if (firstSelectedIndex == -1) {
+                          firstSelectedIndex = index;
+                        } else {
+                          secondSelectedIndex = index;
+                          _swap(pairs, firstSelectedIndex, secondSelectedIndex);
+                          firstSelectedIndex = -1;
+                          secondSelectedIndex = -1;
+                        }
+                      });
+                    },
+                    child: TileCard(
+                      index: index,
+                      color: pairs[index].getColor(),
+                      parent: this,
+                    ),
+                  ),
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),
@@ -91,14 +82,11 @@ class _GameScreenState extends State<GameScreen> {
 class TileCard extends StatefulWidget {
   final Color color;
   int index;
-  bool isSelected;
-
   _GameScreenState parent;
 
   TileCard({
     this.color,
     this.index,
-    this.isSelected,
     this.parent,
   });
 

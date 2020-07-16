@@ -9,8 +9,7 @@ List<ColorCard> getPairs() {
   ColorCard colorCard = ColorCard();
 
   //1
-  colorCard.setColor(Colors.yellow[500]);
-  colorCard.setIsSelected(false);
+  colorCard.setColor(Colors.blue[100]);
   pairs.add(colorCard);
   pairs.add(colorCard);
 
@@ -18,7 +17,6 @@ List<ColorCard> getPairs() {
 
   //2
   colorCard.setColor(Colors.blue[300]);
-  colorCard.setIsSelected(false);
   pairs.add(colorCard);
   pairs.add(colorCard);
 
@@ -26,7 +24,6 @@ List<ColorCard> getPairs() {
 
   //3
   colorCard.setColor(Colors.blue[400]);
-  colorCard.setIsSelected(false);
   pairs.add(colorCard);
   pairs.add(colorCard);
 
@@ -34,7 +31,6 @@ List<ColorCard> getPairs() {
 
   //4
   colorCard.setColor(Colors.blue[700]);
-  colorCard.setIsSelected(false);
   pairs.add(colorCard);
   pairs.add(colorCard);
   pairs.add(colorCard);
