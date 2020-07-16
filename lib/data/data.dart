@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:right_brain_puzzle/models/color_card.dart';
 
+int firstSelectedIndex = -1;
+int secondSelectedIndex = -1;
+
 List<ColorCard> getPairs() {
   List<ColorCard> pairs = List<ColorCard>();
   ColorCard colorCard = ColorCard();
 
   //1
-  colorCard.setColor(Colors.blue[100]);
+  colorCard.setColor(Colors.yellow[500]);
   colorCard.setIsSelected(false);
   pairs.add(colorCard);
   pairs.add(colorCard);
@@ -30,7 +33,7 @@ List<ColorCard> getPairs() {
   colorCard = ColorCard();
 
   //4
-  colorCard.setColor(Colors.blue[500]);
+  colorCard.setColor(Colors.blue[700]);
   colorCard.setIsSelected(false);
   pairs.add(colorCard);
   pairs.add(colorCard);

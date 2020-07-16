@@ -57,10 +57,27 @@ class _GameScreenState extends State<GameScreen> {
                 // },
                 children: List.generate(
                     pairs.length,
-                    (index) => TileCard(
-                          color: pairs[index].getColor(),
-                          isSelected: pairs[index].getIsSelected(),
-                          parent: this,
+                    (index) => GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              // print(firstSelectedIndex);
+                              if (firstSelectedIndex == -1) {
+                                firstSelectedIndex = index;
+                              } else {
+                                secondSelectedIndex = index;
+                                _swap(pairs, firstSelectedIndex,
+                                    secondSelectedIndex);
+                                firstSelectedIndex = -1;
+                                secondSelectedIndex = -1;
+                              }
+                            });
+                          },
+                          child: TileCard(
+                            index: index,
+                            color: pairs[index].getColor(),
+                            isSelected: pairs[index].getIsSelected(),
+                            parent: this,
+                          ),
                         )),
               ),
             )
@@ -71,22 +88,39 @@ class _GameScreenState extends State<GameScreen> {
   }
 }
 
-class TileCard extends StatelessWidget {
+class TileCard extends StatefulWidget {
   final Color color;
+  int index;
   bool isSelected;
 
   _GameScreenState parent;
 
   TileCard({
     this.color,
+    this.index,
     this.isSelected,
     this.parent,
   });
 
   @override
+  _TileCardState createState() => _TileCardState();
+}
+
+class _TileCardState extends State<TileCard> {
+  @override
   Widget build(BuildContext context) {
-    return Card(
-      color: color,
+    return Container(
+      height: 50,
+      width: 50,
+      margin: EdgeInsets.all(2),
+      color: widget.color,
     );
   }
+}
+
+void _swap(input, indexA, indexB) {
+  var temp = input[indexA];
+
+  input[indexA] = input[indexB];
+  input[indexB] = temp;
 }
