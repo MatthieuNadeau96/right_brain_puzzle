@@ -9,6 +9,7 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   List<ColorCard> colorCards = List<ColorCard>();
+  bool _completed = false;
 
   @override
   void initState() {
@@ -19,6 +20,8 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print((colorCards.map((e) => e.count).toList()));
+    print(_orderChecker(colorCards));
     return Scaffold(
       appBar: AppBar(
         title: Text('Game Screen'),
@@ -28,7 +31,7 @@ class _GameScreenState extends State<GameScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Poo Poo Pee Pee',
+              (_orderChecker(colorCards)) ? 'YOU WIN!' : 'Poo Poo Pee Pee',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
@@ -36,7 +39,7 @@ class _GameScreenState extends State<GameScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              '💩',
+              (_orderChecker(colorCards)) ? '👍👍👍👍' : '💩',
               style: TextStyle(
                 fontSize: 40,
               ),
@@ -71,7 +74,7 @@ class _GameScreenState extends State<GameScreen> {
                           : EdgeInsets.all(0),
                       child: TileCard(
                         index: index,
-                        color: colorCards[index].getColor(),
+                        color: colorCards[index].color,
                         parent: this,
                       ),
                     ),
@@ -119,4 +122,15 @@ void _swap(input, indexA, indexB) {
 
   input[indexA] = input[indexB];
   input[indexB] = temp;
+}
+
+bool _orderChecker(List order) {
+  List correctOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  List currentOrder = order.map((e) => e.count).toList();
+  for (int i = 0; i < currentOrder.length; i++) {
+    if (currentOrder[i] != correctOrder[i]) {
+      return false;
+    }
+  }
+  return true;
 }

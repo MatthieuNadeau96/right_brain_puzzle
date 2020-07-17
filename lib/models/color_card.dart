@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ColorCard {
-  Color color;
+  final Color color;
+  final int count;
 
   ColorCard({
     this.color,
+    this.count,
   });
-
-  void setColor(Color getColor) {
-    color = getColor;
-  }
-
-  Color getColor() {
-    return color;
-  }
 }
