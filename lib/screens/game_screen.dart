@@ -8,13 +8,13 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  List<ColorCard> pairs = List<ColorCard>();
+  List<ColorCard> colorCards = List<ColorCard>();
 
   @override
   void initState() {
     super.initState();
-    pairs = getPairs();
-    pairs.shuffle();
+    colorCards = getColorCards();
+    colorCards.shuffle();
   }
 
   @override
@@ -28,7 +28,7 @@ class _GameScreenState extends State<GameScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Tap {Red}',
+              'Poo Poo Pee Pee',
               style: TextStyle(
                 fontSize: 30,
                 fontWeight: FontWeight.w600,
@@ -36,9 +36,9 @@ class _GameScreenState extends State<GameScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              '{Counter}',
+              '💩',
               style: TextStyle(
-                fontSize: 20,
+                fontSize: 40,
               ),
             ),
             SizedBox(height: 30),
@@ -49,7 +49,7 @@ class _GameScreenState extends State<GameScreen> {
                   crossAxisCount: 3,
                 ),
                 children: List.generate(
-                  pairs.length,
+                  colorCards.length,
                   (index) => GestureDetector(
                     onTap: () {
                       setState(() {
@@ -57,16 +57,23 @@ class _GameScreenState extends State<GameScreen> {
                           firstSelectedIndex = index;
                         } else {
                           secondSelectedIndex = index;
-                          _swap(pairs, firstSelectedIndex, secondSelectedIndex);
+                          _swap(colorCards, firstSelectedIndex,
+                              secondSelectedIndex);
                           firstSelectedIndex = -1;
                           secondSelectedIndex = -1;
                         }
                       });
                     },
-                    child: TileCard(
-                      index: index,
-                      color: pairs[index].getColor(),
-                      parent: this,
+                    child: Container(
+                      margin: (firstSelectedIndex != -1 &&
+                              firstSelectedIndex == index)
+                          ? EdgeInsets.all(10)
+                          : EdgeInsets.all(0),
+                      child: TileCard(
+                        index: index,
+                        color: colorCards[index].getColor(),
+                        parent: this,
+                      ),
                     ),
                   ),
                 ),
@@ -82,12 +89,14 @@ class _GameScreenState extends State<GameScreen> {
 class TileCard extends StatefulWidget {
   final Color color;
   int index;
+  bool isSelected;
   _GameScreenState parent;
 
   TileCard({
     this.color,
     this.index,
     this.parent,
+    this.isSelected,
   });
 
   @override
@@ -98,9 +107,8 @@ class _TileCardState extends State<TileCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 50,
-      width: 50,
-      margin: EdgeInsets.all(2),
+      // height: 50,
+      // width: 50,
       color: widget.color,
     );
   }
