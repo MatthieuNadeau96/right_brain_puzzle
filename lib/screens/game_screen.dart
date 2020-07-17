@@ -10,18 +10,24 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   List<ColorCard> colorCards = List<ColorCard>();
   bool _completed = false;
-
+  List<ColorCard> _moveableCards = [];
   @override
   void initState() {
     super.initState();
     colorCards = getColorCards();
-    colorCards.shuffle();
+    colorCards.forEach((element) {
+      if (element.moveable == true) {
+        _moveableCards.add(element);
+      }
+    });
+    print(_moveableCards);
+    _moveableCards.shuffle();
   }
 
   @override
   Widget build(BuildContext context) {
-    print((colorCards.map((e) => e.count).toList()));
-    print(_orderChecker(colorCards));
+    // print((colorCards.map((e) => e.count).toList()));
+    // print(_orderChecker(colorCards));
     return Scaffold(
       appBar: AppBar(
         title: Text('Game Screen'),
@@ -49,23 +55,27 @@ class _GameScreenState extends State<GameScreen> {
               height: 500,
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 3,
+                  crossAxisCount: 5,
                 ),
                 children: List.generate(
                   colorCards.length,
                   (index) => GestureDetector(
                     onTap: () {
-                      setState(() {
-                        if (firstSelectedIndex == -1) {
-                          firstSelectedIndex = index;
-                        } else {
-                          secondSelectedIndex = index;
-                          _swap(colorCards, firstSelectedIndex,
-                              secondSelectedIndex);
-                          firstSelectedIndex = -1;
-                          secondSelectedIndex = -1;
-                        }
-                      });
+                      if (colorCards[index].moveable) {
+                        setState(() {
+                          if (firstSelectedIndex == -1) {
+                            firstSelectedIndex = index;
+                          } else {
+                            secondSelectedIndex = index;
+                            _swap(colorCards, firstSelectedIndex,
+                                secondSelectedIndex);
+                            firstSelectedIndex = -1;
+                            secondSelectedIndex = -1;
+                          }
+                        });
+                      } else {
+                        return;
+                      }
                     },
                     child: Container(
                       margin: (firstSelectedIndex != -1 &&
@@ -125,7 +135,12 @@ void _swap(input, indexA, indexB) {
 }
 
 bool _orderChecker(List order) {
-  List correctOrder = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  var correctOrder = [];
+  for (var i = 0; i < order.length; i++) {
+    correctOrder.add(i);
+  }
+  // print('correctOrder ======= $correctOrder');
+
   List currentOrder = order.map((e) => e.count).toList();
   for (int i = 0; i < currentOrder.length; i++) {
     if (currentOrder[i] != correctOrder[i]) {
