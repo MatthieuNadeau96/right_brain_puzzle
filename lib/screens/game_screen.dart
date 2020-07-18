@@ -9,26 +9,34 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   List<ColorCard> colorCards = List<ColorCard>();
+  List<ColorCard> moveableCards = [];
   bool _completed = false;
-  List<ColorCard> _moveableCards = [];
   @override
   void initState() {
     super.initState();
+    _startGame();
+  }
+
+  void _startGame() {
+    moveableCards = [];
     colorCards = getColorCards();
     colorCards.forEach((element) {
       if (element.moveable == true) {
-        _moveableCards.add(element);
+        moveableCards.add(element);
       }
     });
     colorCards.removeWhere((element) => element.moveable);
-    _moveableCards.shuffle();
-    colorCards.insertAll(5, _moveableCards);
-    print(_moveableCards.map((e) => e.count));
-    print(colorCards.map((e) => e.count));
+    moveableCards.shuffle();
+    colorCards.insertAll(5, moveableCards);
   }
 
   @override
   Widget build(BuildContext context) {
+    if (_orderChecker(colorCards)) {
+      setState(() {
+        _completed = true;
+      });
+    }
     return Scaffold(
       appBar: AppBar(
         title: Text('Game Screen'),
@@ -46,14 +54,14 @@ class _GameScreenState extends State<GameScreen> {
             ),
             SizedBox(height: 10),
             Text(
-              (_orderChecker(colorCards)) ? '👍👍👍👍' : '💩',
+              (_completed) ? '👍👍👍👍' : '💩',
               style: TextStyle(
                 fontSize: 40,
               ),
             ),
             SizedBox(height: 30),
-            Container(
-              height: 500,
+            Expanded(
+              flex: 2,
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
@@ -108,6 +116,29 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               ),
             ),
+            if (_completed)
+              Expanded(
+                flex: 1,
+                child: Container(
+                  child: Center(
+                    child: RaisedButton(
+                      color: Theme.of(context).primaryColor,
+                      child: Text(
+                        'Play Again?',
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                      ),
+                      onPressed: () {
+                        setState(() {
+                          _completed = false;
+                          _startGame();
+                        });
+                      },
+                    ),
+                  ),
+                ),
+              ),
           ],
         ),
       ),
