@@ -20,14 +20,15 @@ class _GameScreenState extends State<GameScreen> {
         _moveableCards.add(element);
       }
     });
-    print(_moveableCards);
+    colorCards.removeWhere((element) => element.moveable);
     _moveableCards.shuffle();
+    colorCards.insertAll(5, _moveableCards);
+    print(_moveableCards.map((e) => e.count));
+    print(colorCards.map((e) => e.count));
   }
 
   @override
   Widget build(BuildContext context) {
-    // print((colorCards.map((e) => e.count).toList()));
-    // print(_orderChecker(colorCards));
     return Scaffold(
       appBar: AppBar(
         title: Text('Game Screen'),
@@ -77,16 +78,31 @@ class _GameScreenState extends State<GameScreen> {
                         return;
                       }
                     },
-                    child: Container(
-                      margin: (firstSelectedIndex != -1 &&
-                              firstSelectedIndex == index)
-                          ? EdgeInsets.all(10)
-                          : EdgeInsets.all(0),
-                      child: TileCard(
-                        index: index,
-                        color: colorCards[index].color,
-                        parent: this,
-                      ),
+                    child: Stack(
+                      children: [
+                        Container(
+                          margin: (firstSelectedIndex != -1 &&
+                                  firstSelectedIndex == index)
+                              ? EdgeInsets.all(10)
+                              : EdgeInsets.all(0),
+                          child: TileCard(
+                            index: index,
+                            color: colorCards[index].color,
+                            parent: this,
+                          ),
+                        ),
+                        if (!colorCards[index].moveable)
+                          Center(
+                            child: Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(100),
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ),
@@ -137,8 +153,10 @@ void _swap(input, indexA, indexB) {
 bool _orderChecker(List order) {
   var correctOrder = [];
   for (var i = 0; i < order.length; i++) {
-    correctOrder.add(i);
+    correctOrder.add(i + 1);
   }
+
+  // print('current Order ===>==>==> ${order.map((e) => e.count).toList()}');
   // print('correctOrder ======= $correctOrder');
 
   List currentOrder = order.map((e) => e.count).toList();

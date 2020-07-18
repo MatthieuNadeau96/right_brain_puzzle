@@ -7,136 +7,127 @@ int secondSelectedIndex = -1;
 List<ColorCard> getColorCards() {
   List<ColorCard> colorCards = [
     ColorCard(
-      color: Color(0xff065C5C), // a1
+      color: Color(0xff065C5C), // a1 green
       count: 1,
-
       moveable: false,
     ),
     ColorCard(
       color: Color(0xff407D4A), // a2
       count: 2,
-
       moveable: false,
     ),
     ColorCard(
       color: Color(0xff7B9E38), // a3
       count: 3,
-
       moveable: false,
     ),
     ColorCard(
       color: Color(0xffB5BF26), // a4
       count: 4,
-
       moveable: false,
     ),
     ColorCard(
-      color: Color(0xffF0E114), // a6 & b1
+      color: Color(0xffF0E114), // a5 // b1 yellow
       count: 5,
-
       moveable: false,
     ),
     ColorCard(
-      color: Color(0xffF1C418), // b2
+      color: Color(0xff06465B), // d4
       count: 6,
-
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Color(0xffF2A71C), // b3
+      color: Color(0xff40654A), //
       count: 7,
-
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Color(0xffF38A20), // b4
+      color: Color(0xff7B8539), //
       count: 8,
-
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Color(0xffF46D25), // b5 & c1
+      color: Color(0xffB6A428), //
       count: 9,
-
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.pink, // b6
+      color: Color(0xffF1C418), //
       count: 10,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[100],
+      color: Color(0xff07315B), //d3
       count: 11,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[200],
+      color: Color(0xff414E4B),
       count: 12,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[300],
+      color: Color(0xff7C6C3B),
       count: 13,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[400],
+      color: Color(0xffB7892B),
       count: 14,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[500],
+      color: Color(0xffF2A71C),
       count: 15,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[600],
+      color: Color(0xff081B5B), //d2
       count: 16,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[700],
+      color: Color(0xff42364C),
       count: 17,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[800],
+      color: Color(0xff7D523D),
       count: 18,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.red[900],
+      color: Color(0xffB86E2E),
       count: 19,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.purple[100],
+      color: Color(0xffF38A20),
       count: 20,
-      moveable: false,
+      moveable: true,
     ),
     ColorCard(
-      color: Colors.purple[200],
+      color: Color(0xff09065B), // d1 // c5 blue
       count: 21,
       moveable: false,
     ),
     ColorCard(
-      color: Colors.purple[300],
+      color: Color(0xff431F4D), // c4
       count: 22,
       moveable: false,
     ),
     ColorCard(
-      color: Colors.purple[400],
+      color: Color(0xff7E3940), // c3
       count: 23,
       moveable: false,
     ),
     ColorCard(
-      color: Colors.purple[500],
+      color: Color(0xffB95332), // c2
       count: 24,
       moveable: false,
     ),
     ColorCard(
-      color: Colors.blue[600],
+      color: Color(0xffF46D25), // b4 // c1 orange
       count: 25,
       moveable: false,
     ),
