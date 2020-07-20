@@ -48,23 +48,33 @@ class _GameScreenState extends State<GameScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(
-              (_orderChecker(colorCards)) ? 'YOU WIN!' : 'Poo Poo Pee Pee',
-              style: TextStyle(
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            SizedBox(height: 10),
-            Text(
-              (_completed) ? '👍👍👍👍' : '💩',
-              style: TextStyle(
-                fontSize: 40,
-              ),
-            ),
-            SizedBox(height: 30),
             Expanded(
               flex: 2,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    (_orderChecker(colorCards))
+                        ? 'YOU WIN!'
+                        : 'Swap the tiles to fix the gradient',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  Text(
+                    (_completed) ? '👍👍👍👍' : '',
+                    style: TextStyle(
+                      fontSize: 40,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Expanded(
+              flex: 5,
               child: GridView(
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 5,
@@ -135,8 +145,8 @@ class _GameScreenState extends State<GameScreen> {
             if (_completed)
               Expanded(
                 flex: 1,
-                child: Container(
-                  child: Center(
+                child: Center(
+                  child: Container(
                     child: RaisedButton(
                       color: Theme.of(context).primaryColor,
                       child: Text(
