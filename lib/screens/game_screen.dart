@@ -3,11 +3,14 @@ import 'package:right_brain_puzzle/data/data.dart';
 import 'package:right_brain_puzzle/models/color_card.dart';
 
 class GameScreen extends StatefulWidget {
+  GameScreen({Key key}) : super(key: key);
   @override
   _GameScreenState createState() => _GameScreenState();
 }
 
 class _GameScreenState extends State<GameScreen> {
+  GlobalKey key = GlobalKey();
+
   List<ColorCard> colorCards = List<ColorCard>();
   List<ColorCard> moveableCards = [];
   bool _completed = false;
@@ -88,15 +91,28 @@ class _GameScreenState extends State<GameScreen> {
                     },
                     child: Stack(
                       children: [
-                        Container(
-                          margin: (firstSelectedIndex != -1 &&
-                                  firstSelectedIndex == index)
-                              ? EdgeInsets.all(10)
-                              : EdgeInsets.all(0),
-                          child: TileCard(
-                            index: index,
-                            color: colorCards[index].color,
-                            parent: this,
+                        AnimatedSwitcher(
+                          switchInCurve: Curves.easeIn,
+                          switchOutCurve: Curves.easeOut,
+                          duration: const Duration(milliseconds: 300),
+                          transitionBuilder: // TODO: look at AnimatedSwitcherLayoutBuilder
+                              (Widget child, Animation<double> animation) {
+                            return ScaleTransition(
+                              child: child,
+                              scale: animation,
+                            );
+                          },
+                          child: Container(
+                            key: ValueKey<int>(colorCards[index].count),
+                            margin: (firstSelectedIndex != -1 &&
+                                    firstSelectedIndex == index)
+                                ? EdgeInsets.all(5)
+                                : EdgeInsets.all(0),
+                            child: TileCard(
+                              index: index,
+                              color: colorCards[index].color,
+                              parent: this,
+                            ),
                           ),
                         ),
                         if (!colorCards[index].moveable)
