@@ -59,7 +59,7 @@ class _GameScreenState extends State<GameScreen> {
                     Text(
                       (_orderChecker(colorCards))
                           ? 'YOU WIN!'
-                          : 'Swap the tiles to fix the gradient',
+                          : 'Tap the tiles to fix the gradient',
                       style: TextStyle(
                         fontSize: 24,
                         fontWeight: FontWeight.w600,
